@@ -1,24 +1,25 @@
-# Backend Dockerfile
-FROM node:20-alpine AS builder
-
-WORKDIR /app
-
-COPY package.json package-lock.json ./
-RUN npm ci
-
-COPY tsconfig.json ./
-COPY src ./src
-RUN npx tsc
-
-# Production stage
+# Backend Dockerfile — simplified and reliable
 FROM node:20-alpine
 
 WORKDIR /app
 
+# Copy package files
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
 
-COPY --from=builder /app/dist ./dist
+# Install all dependencies first (including dev for building)
+RUN npm install
+
+# Copy source and build
+COPY tsconfig.json ./
+COPY src ./src
+RUN npm run build
+
+# Remove devDependencies to reduce image size
+RUN npm prune --production
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && adduser -S nodejs -u 1001
+USER nodejs
 
 EXPOSE 5001
 
