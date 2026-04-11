@@ -6,19 +6,19 @@ services:
     container_name: bl-campaign-backend
     restart: unless-stopped
     ports:
-      - "${PORT:-5001}:5001"
+      - "${PORT:-5002}:5002"
     environment:
       - DB_HOST=${DB_HOST:-10.0.0.28}
       - DB_PORT=${DB_PORT:-3306}
       - DB_NAME=${DB_NAME:-campaign_data}
       - DB_USER=${DB_USER:-ash_user_copilot}
       - DB_PASSWORD=${DB_PASSWORD:-Ashleycampaignsql123}
-      - PORT=5001
+      - PORT=5002
       - NODE_ENV=${NODE_ENV:-production}
-      - FRONTEND_URL=${FRONTEND_URL:-http://localhost:8080}
+      - FRONTEND_URL=${FRONTEND_URL:-http://localhost:8081}
       - STEAM_API_KEY=${STEAM_API_KEY:-31CF743A89D4659891C55ACCDE225FF2}
-      - STEAM_RETURN_URL=${STEAM_RETURN_URL:-http://localhost:5001/api/auth/steam/callback}
-      - STEAM_REALM=${STEAM_REALM:-http://localhost:5001/}
+      - STEAM_RETURN_URL=${STEAM_RETURN_URL:-http://localhost:5002/api/auth/steam/callback}
+      - STEAM_REALM=${STEAM_REALM:-http://localhost:5002/}
       - JWT_SECRET=${JWT_SECRET:-bl-campaign-development-secret-change-for-production}
       - TICK_INTERVAL_MS=${TICK_INTERVAL_MS:-60000}
       - GAME_START_DATE=${GAME_START_DATE:-2026-04-11T00:00:00Z}
@@ -30,7 +30,7 @@ services:
     container_name: bl-campaign-frontend
     restart: unless-stopped
     ports:
-      - "${FRONTEND_PORT:-8080}:80"
+      - "${FRONTEND_PORT:-8081}:80"
     depends_on:
       - backend
     networks:
