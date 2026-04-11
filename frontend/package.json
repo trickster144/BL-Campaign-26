@@ -4,9 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "setup:dirs": "node setup-dirs.cjs",
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build --mode production",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
