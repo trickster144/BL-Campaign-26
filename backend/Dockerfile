@@ -16,7 +16,7 @@ RUN npm run build || echo "tsc build had warnings, continuing..."
 RUN addgroup -S nodejs && adduser -S nodejs -G nodejs
 USER nodejs
 
-EXPOSE 5001
+EXPOSE 55002
 
 # Try compiled output first, fall back to tsx
 CMD ["node", "dist/server.js"]

@@ -6,7 +6,7 @@ services:
     container_name: bl-campaign-backend
     restart: unless-stopped
     ports:
-      - "${BACKEND_PORT:-5001}:5001"
+      - "${BACKEND_PORT:-55002}:55002"
     environment:
       # Database Configuration
       - DB_HOST=10.0.0.28
@@ -16,14 +16,14 @@ services:
       - DB_PASSWORD=Ashleycampaignsql123
       
       # Server Configuration
-      - PORT=5001
+      - PORT=55002
       - NODE_ENV=production
-      - FRONTEND_URL=http://localhost:${FRONTEND_PORT:-8080}
+      - FRONTEND_URL=http://localhost:${FRONTEND_PORT:-58081}
       
       # Steam Authentication
       - STEAM_API_KEY=31CF743A89D4659891C55ACCDE225FF2
-      - STEAM_RETURN_URL=http://localhost:5001/api/auth/steam/callback
-      - STEAM_REALM=http://localhost:5001/
+      - STEAM_RETURN_URL=http://localhost:55002/api/auth/steam/callback
+      - STEAM_REALM=http://localhost:55002/
       
       # Security
       - JWT_SECRET=bl-campaign-development-secret-change-for-production
@@ -40,7 +40,7 @@ services:
     container_name: bl-campaign-frontend
     restart: unless-stopped
     ports:
-      - "${FRONTEND_PORT:-8080}:80"
+      - "${FRONTEND_PORT:-58081}:80"
     depends_on:
       - backend
     networks:

@@ -42,6 +42,6 @@ COPY --from=builder /app/dist ./dist
 RUN groupadd --gid 1001 nodejs && useradd --uid 1001 --gid nodejs --shell /bin/bash --create-home nodejs
 USER nodejs
 
-EXPOSE 5001
+EXPOSE 55002
 
 CMD ["node", "dist/server.js"]
