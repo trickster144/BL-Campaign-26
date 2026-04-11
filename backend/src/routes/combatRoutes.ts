@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { RequestHandler } from 'express';
 import {
   getArmies,
   createArmyHandler,
@@ -7,12 +7,12 @@ import {
   getBattles,
   getBattleDetail,
 } from '../controllers/combatController.js';
-import { authenticateToken } from '../middleware/auth.js';
+import { authenticateToken as RequestHandler } from '../middleware/auth.js';
 import { requireTeam } from '../middleware/requireTeam.js';
 
 const router = express.Router();
 
-router.use(authenticateToken);
+router.use(authenticateToken as RequestHandler);
 router.use(requireTeam);
 
 // GET /api/combat/armies

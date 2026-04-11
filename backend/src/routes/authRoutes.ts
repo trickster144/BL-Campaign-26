@@ -1,6 +1,6 @@
-import express from 'express';
+import express, { RequestHandler } from 'express';
 import { steamLogin, steamCallback, getProfile, logout } from '../controllers/authController.js';
-import { authenticateToken } from '../middleware/auth.js';
+import { authenticateToken as RequestHandler } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -11,9 +11,9 @@ router.get('/steam', steamLogin);
 router.get('/steam/callback', steamCallback);
 
 // GET /api/auth/profile - Get current user profile
-router.get('/profile', authenticateToken, getProfile);
+router.get('/profile', authenticateToken as RequestHandler, getProfile);
 
 // POST /api/auth/logout - Logout
-router.post('/logout', authenticateToken, logout);
+router.post('/logout', authenticateToken as RequestHandler, logout);
 
 export default router;

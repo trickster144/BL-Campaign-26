@@ -33,13 +33,13 @@ export async function testConnection(): Promise<boolean> {
   }
 }
 
-export async function query<T extends RowDataPacket[]>(sql: string, params?: unknown[]): Promise<T> {
-  const [rows] = await pool.execute<T>(sql, params);
+export async function query<T extends RowDataPacket[]>(sql: string, params?: (string | number | boolean | null)[]): Promise<T> {
+  const [rows] = await pool.execute<T>(sql, params || []);
   return rows;
 }
 
-export async function execute(sql: string, params?: unknown[]): Promise<ResultSetHeader> {
-  const [result] = await pool.execute<ResultSetHeader>(sql, params);
+export async function execute(sql: string, params?: (string | number | boolean | null)[]): Promise<ResultSetHeader> {
+  const [result] = await pool.execute<ResultSetHeader>(sql, params || []);
   return result;
 }
 

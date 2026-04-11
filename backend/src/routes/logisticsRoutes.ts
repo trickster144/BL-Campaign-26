@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { RequestHandler } from 'express';
 import {
   getVehicles,
   createVehicleHandler,
@@ -8,13 +8,13 @@ import {
   getTrips,
   setSchedule,
 } from '../controllers/logisticsController.js';
-import { authenticateToken } from '../middleware/auth.js';
+import { authenticateToken as RequestHandler } from '../middleware/auth.js';
 import { requireTeam } from '../middleware/requireTeam.js';
 
 const router = express.Router();
 
 // All logistics routes require authentication and team membership
-router.use(authenticateToken);
+router.use(authenticateToken as RequestHandler);
 router.use(requireTeam);
 
 // GET /api/logistics/vehicles

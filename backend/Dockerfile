@@ -1,24 +1,22 @@
-# Backend Dockerfile — simplified and reliable
 FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy package files
-COPY package.json package-lock.json ./
-
-# Install all dependencies first (including dev for building)
+# Install dependencies first (better caching)
+COPY package*.json ./
 RUN npm install
 
-# Copy source and build
-COPY tsconfig.json ./
-COPY src ./src
+# Copy rest of app
+COPY . .
+
+# Build TypeScript
 RUN npm run build
 
-# Remove devDependencies to reduce image size
-RUN npm prune --production
+# Remove dev dependencies
+RUN npm prune --omit=dev
 
-# Create non-root user
-RUN addgroup -g 1001 -S nodejs && adduser -S nodejs -u 1001
+# Use non-root user
+RUN addgroup -S nodejs && adduser -S nodejs -G nodejs
 USER nodejs
 
 EXPOSE 5001
