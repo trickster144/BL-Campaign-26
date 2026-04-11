@@ -6,7 +6,7 @@ Deployment notes — Portainer / Docker Compose
 
 2) Use stack.env in Portainer
    - In Portainer stack editor either upload stack.env or paste its contents when deploying the compose file.
-   - The compose file uses host ports by default: backend -> 5002, frontend -> 8081. Change these in stack.env if needed.
+   - The compose file uses host ports by default: backend -> 55002, frontend -> 58081. Change these in stack.env if needed.
 
 3) Port checks
    - If Portainer reports "port already allocated" stop the process using the port or pick different host ports.

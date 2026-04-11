@@ -6,7 +6,7 @@ services:
     container_name: bl-campaign-backend
     restart: unless-stopped
     ports:
-      - "${PORT:-5002}:5002"
+      - "${PORT:-55002}:5002"
     environment:
       - DB_HOST=${DB_HOST:-10.0.0.28}
       - DB_PORT=${DB_PORT:-3306}
@@ -30,7 +30,7 @@ services:
     container_name: bl-campaign-frontend
     restart: unless-stopped
     ports:
-      - "${FRONTEND_PORT:-8081}:80"
+      - "${FRONTEND_PORT:-58081}:80"
     depends_on:
       - backend
     networks:

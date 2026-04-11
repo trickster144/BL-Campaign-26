@@ -1,0 +1,43 @@
+*** Begin Patch
+*** Update File: docker-compose.yml
+@@
+-      - "${PORT:-5002}:5002"
++      - "${PORT:-55002}:5002"
+@@
+-      - "${FRONTEND_PORT:-8081}:80"
++      - "${FRONTEND_PORT:-58081}:80"
+*** End Patch
+*** Begin Patch
+*** Update File: stack.env
+@@
+-PORT=5002
+-FRONTEND_PORT=8081
+-NODE_ENV=production
+-FRONTEND_URL=http://localhost:8081
+-STEAM_API_KEY=31CF743A89D4659891C55ACCDE225FF2
+-STEAM_RETURN_URL=http://localhost:5002/api/auth/steam/callback
+-STEAM_REALM=http://localhost:5002/
++PORT=55002
++FRONTEND_PORT=58081
++NODE_ENV=production
++FRONTEND_URL=http://localhost:58081
++STEAM_API_KEY=31CF743A89D4659891C55ACCDE225FF2
++STEAM_RETURN_URL=http://localhost:55002/api/auth/steam/callback
++STEAM_REALM=http://localhost:55002/
+*** End Patch
+*** Begin Patch
+*** Update File: backend/.env.example
+@@
+-PORT=5002
+-NODE_ENV=production
+-FRONTEND_URL=http://localhost:8081
++PORT=5002
++NODE_ENV=production
++FRONTEND_URL=http://localhost:58081
+*** End Patch
+*** Begin Patch
+*** Update File: README_DEPLOY.md
+@@
+-   - The compose file uses host ports by default: backend -> 5002, frontend -> 8081. Change these in stack.env if needed.
++   - The compose file uses host ports by default: backend -> 55002, frontend -> 58081. Change these in stack.env if needed.
+*** End Patch

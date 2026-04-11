@@ -1,0 +1,153 @@
+### File: docker-compose.yml
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+    container_name: bl-campaign-backend
+    restart: unless-stopped
+    ports:
+      - "${PORT:-5002}:5002"
+    environment:
+      - DB_HOST=${DB_HOST:-10.0.0.28}
+      - DB_PORT=${DB_PORT:-3306}
+      - DB_NAME=${DB_NAME:-campaign_data}
+      - DB_USER=${DB_USER:-ash_user_copilot}
+      - DB_PASSWORD=${DB_PASSWORD:-Ashleycampaignsql123}
+      - PORT=5002
+      - NODE_ENV=${NODE_ENV:-production}
+      - FRONTEND_URL=${FRONTEND_URL:-http://localhost:8081}
+      - STEAM_API_KEY=${STEAM_API_KEY:-31CF743A89D4659891C55ACCDE225FF2}
+      - STEAM_RETURN_URL=${STEAM_RETURN_URL:-http://localhost:5002/api/auth/steam/callback}
+      - STEAM_REALM=${STEAM_REALM:-http://localhost:5002/}
+      - JWT_SECRET=${JWT_SECRET:-bl-campaign-development-secret-change-for-production}
+      - TICK_INTERVAL_MS=${TICK_INTERVAL_MS:-60000}
+      - GAME_START_DATE=${GAME_START_DATE:-2026-04-11T00:00:00Z}
+    networks:
+      - bl-network
+
+  frontend:
+    build: ./frontend
+    container_name: bl-campaign-frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-8081}:80"
+    depends_on:
+      - backend
+    networks:
+      - bl-network
+
+networks:
+  bl-network:
+    driver: bridge
+
+---
+### File: stack.env
+DB_HOST=10.0.0.28
+DB_PORT=3306
+DB_NAME=campaign_data
+DB_USER=ash_user_copilot
+DB_PASSWORD=Ashleycampaignsql123
+PORT=5002
+FRONTEND_PORT=8081
+NODE_ENV=production
+FRONTEND_URL=http://localhost:8081
+STEAM_API_KEY=31CF743A89D4659891C55ACCDE225FF2
+STEAM_RETURN_URL=http://localhost:5002/api/auth/steam/callback
+STEAM_REALM=http://localhost:5002/
+JWT_SECRET=bl-campaign-development-secret-change-for-production
+TICK_INTERVAL_MS=60000
+GAME_START_DATE=2026-04-11T00:00:00Z
+
+---
+### File: README_DEPLOY.md
+Deployment notes — Portainer / Docker Compose
+
+1) Push changes to GitHub
+   - Commit all changes and push to the repo: git add -A && git commit -m "Deployment: compose ports and env files" && git push
+   - Or run simple-push-fixes.bat if available.
+
+2) Use stack.env in Portainer
+   - In Portainer stack editor either upload stack.env or paste its contents when deploying the compose file.
+   - The compose file uses host ports by default: backend -> 5002, frontend -> 8081. Change these in stack.env if needed.
+
+3) Port checks
+   - If Portainer reports "port already allocated" stop the process using the port or pick different host ports.
+   - Linux: sudo ss -ltnp | grep 5002
+   - Windows: netstat -ano | findstr :5002
+
+4) Steam auth
+   - Ensure STEAM_API_KEY is set in stack.env. STEAM_RETURN_URL and STEAM_REALM must match your public domain.
+
+5) Debugging
+   - Check container logs in Portainer for build or runtime errors.
+   - For build failures, look at the service logs during build and the Dockerfile referenced in the service.
+
+6) Local dev
+   - Use backend/.env.example as a template for local backend/.env
+   - Use stack.env for Portainer deployments
+
+---
+### File: push-stack-changes.bat
+@echo off
+REM Push script for BL-Campaign-26 — run this from repo root
+echo Creating commit message...
+echo Deploy: compose ports, env files, README_DEPLOY> COMMIT_MSG.txt
+echo.>> COMMIT_MSG.txt
+echo Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>> COMMIT_MSG.txt
+
+git add -A
+echo Committing changes...
+git commit -F COMMIT_MSG.txt || (echo No changes to commit)
+echo Pulling remote changes (rebase)...
+git pull --rebase origin master || git pull origin master
+echo Pushing to origin/master (force)...
+git push origin master --force
+del COMMIT_MSG.txt
+echo Done.
+pause
+
+---
+### File: backend/.env.example
+# Black Legion Cold War Campaign - Backend Environment Configuration
+# Copy this to .env and configure with real values
+
+# ============================================================================= 
+# DATABASE CONFIGURATION
+# =============================================================================
+DB_HOST=10.0.0.28
+DB_PORT=3306
+DB_NAME=campaign_data
+DB_USER=ash_user_copilot
+DB_PASSWORD=Ashleycampaignsql123
+
+# ============================================================================= 
+# SERVER CONFIGURATION
+# =============================================================================
+PORT=5002
+NODE_ENV=production
+FRONTEND_URL=http://localhost:8081
+
+# ============================================================================= 
+# STEAM AUTHENTICATION
+# =============================================================================
+# Get your Steam API key from: https://steamcommunity.com/dev/apikey
+# Required for Steam login to work
+STEAM_API_KEY=31CF743A89D4659891C55ACCDE225FF2
+
+# These URLs should match your deployment
+STEAM_RETURN_URL=http://localhost:5002/api/auth/steam/callback
+STEAM_REALM=http://localhost:5002/
+
+# ============================================================================= 
+# SECURITY
+# =============================================================================
+# JWT Secret for session tokens (CHANGE THIS IN PRODUCTION!)
+# Generate with: openssl rand -base64 64
+JWT_SECRET=CHANGE_THIS_IN_PRODUCTION_USE_STRONG_RANDOM_KEY
+
+# ============================================================================= 
+# GAME CONFIGURATION
+# =============================================================================
+TICK_INTERVAL_MS=60000
+GAME_START_DATE=2026-04-11T00:00:00Z
