@@ -26,6 +26,7 @@ npm-debug.log*
 setup-dirs.bat
 create_dirs.py
 git-init.bat
+test-docker-builds.sh
 frontend/setup-dirs.cjs
 frontend/setup-dirs.js
 frontend/setup-dirs.py
