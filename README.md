@@ -221,19 +221,32 @@ docker-compose up -d --build
 docker-compose logs -f
 ```
 
-The frontend will be available at `http://localhost` (port 80) and the backend API at `http://localhost:5000`.
+### Default Ports (Updated for Testing Environment)
+- **Frontend**: http://localhost:8080 (changed from port 80)
+- **Backend API**: http://localhost:5001 (changed from port 5000)
 
-> **Note**: The MySQL database runs externally (not in Docker). Ensure `backend/.env` has the correct DB connection settings before building.
+### Steam Authentication Setup
+**Before first use**, configure Steam login:
+1. **Read `STEAM_SETUP.md`** for complete setup instructions
+2. **Get Steam API key** from https://steamcommunity.com/dev/apikey
+3. **Edit `backend/.env`** and set your Steam API key
+
+### Portainer Deployment
+For cloud deployment on Portainer.io:
+- **Follow `PORTAINER_DEPLOY.md`** for step-by-step guide
+- Uses custom ports to avoid conflicts in shared environments
+
+> **Note**: The MySQL database runs externally at 10.0.0.28:3306 (not in Docker). Ensure `backend/.env` has the correct DB connection settings.
 
 ### Individual Services
 ```bash
-# Build & run backend only
+# Build & run backend only (port 5001)
 docker build -t bl-backend ./backend
-docker run -d -p 5000:5000 --env-file backend/.env bl-backend
+docker run -d -p 5001:5001 --env-file backend/.env bl-backend
 
-# Build & run frontend only
+# Build & run frontend only (port 8080)
 docker build -t bl-frontend ./frontend
-docker run -d -p 80:80 bl-frontend
+docker run -d -p 8080:80 bl-frontend
 ```
 
 ## Development
