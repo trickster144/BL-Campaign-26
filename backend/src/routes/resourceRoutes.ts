@@ -1,6 +1,6 @@
 import express, { RequestHandler } from 'express';
 import { getResources, getLocationResourcesHandler, getProductionChains } from '../controllers/resourceController.js';
-import { authenticateToken as RequestHandler } from '../middleware/auth.js';
+import { authenticateToken } from '../middleware/auth.js';
 
 const router = express.Router();
 

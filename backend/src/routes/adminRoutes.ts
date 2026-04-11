@@ -1,10 +1,10 @@
 import express, { RequestHandler } from 'express';
 import { getUsers, updateUserRole, approveUser, gamemasterAction } from '../controllers/adminController.js';
-import { authenticateToken as RequestHandler, requireRole } from '../middleware/auth.js';
+import { authenticateToken, requireRole } from '../middleware/auth.js';
 
 const router = express.Router();
 
-router.use(authenticateToken as RequestHandler as RequestHandler);
+router.use(authenticateToken as RequestHandler);
 
 // GET /api/admin/users - List all users (admin/gamemaster only)
 router.get('/users', requireRole(['admin', 'gamemaster']) as RequestHandler, getUsers);

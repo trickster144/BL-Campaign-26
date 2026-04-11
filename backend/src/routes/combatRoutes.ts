@@ -7,7 +7,7 @@ import {
   getBattles,
   getBattleDetail,
 } from '../controllers/combatController.js';
-import { authenticateToken as RequestHandler } from '../middleware/auth.js';
+import { authenticateToken } from '../middleware/auth.js';
 import { requireTeam } from '../middleware/requireTeam.js';
 
 const router = express.Router();

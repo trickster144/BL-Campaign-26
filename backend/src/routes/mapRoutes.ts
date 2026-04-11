@@ -1,6 +1,6 @@
 import express, { RequestHandler } from 'express';
 import { getMap, getLocations, getLocationDetail } from '../controllers/mapController.js';
-import { authenticateToken as RequestHandler } from '../middleware/auth.js';
+import { authenticateToken } from '../middleware/auth.js';
 
 const router = express.Router();
 

@@ -30,3 +30,12 @@ test-docker-builds.sh
 frontend/setup-dirs.cjs
 frontend/setup-dirs.js
 frontend/setup-dirs.py
+
+# Build fix scripts (no longer needed)
+*.bat
+*.sh
+DOCKER_TROUBLESHOOTING.md
+EXACT_GITHUB_FIXES.md
+GITHUB_UPDATE_REQUIRED.md
+MANUAL_GIT_COMMANDS.md
+PORTAINER_ENV_FIX.md

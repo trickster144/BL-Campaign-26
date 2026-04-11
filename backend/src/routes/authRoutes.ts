@@ -1,6 +1,6 @@
 import express, { RequestHandler } from 'express';
 import { steamLogin, steamCallback, getProfile, logout } from '../controllers/authController.js';
-import { authenticateToken as RequestHandler } from '../middleware/auth.js';
+import { authenticateToken } from '../middleware/auth.js';
 
 const router = express.Router();
 
