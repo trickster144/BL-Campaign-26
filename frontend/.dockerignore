@@ -1,0 +1,4 @@
+node_modules
+dist
+setup-dirs.*
+*.log

@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+    container_name: bl-campaign-backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./backend/.env
+    environment:
+      - NODE_ENV=production
+    depends_on: []
+    networks:
+      - bl-network
+
+  frontend:
+    build: ./frontend
+    container_name: bl-campaign-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - bl-network
+
+networks:
+  bl-network:
+    driver: bridge

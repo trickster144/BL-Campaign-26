@@ -1,0 +1,21 @@
+import express from 'express';
+import { getUsers, updateUserRole, approveUser, gamemasterAction } from '../controllers/adminController.js';
+import { authenticateToken, requireRole } from '../middleware/auth.js';
+
+const router = express.Router();
+
+router.use(authenticateToken);
+
+// GET /api/admin/users - List all users (admin/gamemaster only)
+router.get('/users', requireRole(['admin', 'gamemaster']), getUsers);
+
+// PUT /api/admin/users/:userId/role - Change user role
+router.put('/users/:userId/role', requireRole(['admin']), updateUserRole);
+
+// POST /api/admin/users/:userId/approve - Approve user to a team
+router.post('/users/:userId/approve', requireRole(['admin', 'gamemaster']), approveUser);
+
+// POST /api/admin/gamemaster - Execute gamemaster override
+router.post('/gamemaster', requireRole(['admin', 'gamemaster']), gamemasterAction);
+
+export default router;

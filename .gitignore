@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment files (contain secrets)
+.env
+backend/.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temp/setup files
+setup-dirs.bat
+create_dirs.py
+git-init.bat
+frontend/setup-dirs.cjs
+frontend/setup-dirs.js
+frontend/setup-dirs.py

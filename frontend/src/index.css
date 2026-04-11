@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: 14px; }
+body { margin: 0; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+a { color: var(--blue-team, #1e90ff); text-decoration: none; }
+a:hover { color: #4da6ff; }
+
+/* Bootstrap dark overrides */
+.dropdown-menu-dark, .dropdown-menu.bg-dark {
+  background-color: #16213e !important;
+  border-color: #0f3460 !important;
+}
+.dropdown-item.text-light:hover,
+.dropdown-item.text-danger:hover {
+  background-color: rgba(30, 144, 255, 0.1);
+}
+.progress { background-color: #0a0a1a; }
+.table-dark { --bs-table-bg: #16213e; --bs-table-border-color: #0f3460; }
+.table-dark th { background-color: #0f0f23 !important; }
+.btn-outline-primary { --bs-btn-color: #1e90ff; --bs-btn-border-color: #1e90ff; }
+.btn-outline-danger { --bs-btn-color: #dc3545; --bs-btn-border-color: #dc3545; }
+.nav-tabs { border-bottom-color: #0f3460; }
+.nav-tabs .nav-link { color: #8892b0; }
+.nav-tabs .nav-link.active { background-color: #16213e; color: #e0e0e0; border-color: #0f3460 #0f3460 #16213e; }
+.nav-tabs .nav-link:hover { border-color: #0f3460; color: #ccc; }
+.bl-tabs .nav-link { border-radius: 4px 4px 0 0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+::selection { background: rgba(30, 144, 255, 0.3); color: #fff; }
