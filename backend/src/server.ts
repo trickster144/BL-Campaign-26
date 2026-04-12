@@ -95,21 +95,25 @@ io.on('connection', (socket) => {
 const PORT = process.env.PORT || 10012;
 
 async function startup(): Promise<void> {
-  // Test database connection
-  const dbOk = await testConnection();
-  if (!dbOk) {
-    console.error('❌ Cannot start without database. Exiting.');
-    process.exit(1);
-  }
-
   // Start HTTP server
   server.listen(PORT, () => {
     console.log(`🌐 Server running on port ${PORT}`);
     console.log(`   Frontend URL: ${FRONTEND_URL}`);
   });
 
-  // Start tick engine
-  await startTickEngine(io);
+  // Keep auth and other lightweight routes available even if the simulation stack
+  // cannot initialize yet.
+  const dbOk = await testConnection();
+  if (!dbOk) {
+    console.error('⚠️ Database connection failed. Server is running in degraded mode; tick engine not started.');
+    return;
+  }
+
+  try {
+    await startTickEngine(io);
+  } catch (err) {
+    console.error('⚠️ Tick engine failed to start. Server is running without simulation processing:', err);
+  }
 }
 
 // Graceful shutdown
