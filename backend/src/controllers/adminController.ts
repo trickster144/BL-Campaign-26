@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { RowDataPacket } from 'mysql2/promise';
 import { query, execute } from '../databaseConfig.js';
 import { AuthenticatedRequest } from '../middleware/auth.js';
+import { normalizeRole, toDatabaseRole } from '../roleUtils.js';
 
 // ── User management ──────────────────────────────────────────────────────────
 
@@ -10,7 +11,10 @@ export const getUsers = async (_req: Request, res: Response): Promise<void> => {
     const users = await query<RowDataPacket[]>(
       'SELECT id, steam_id, username, avatar_url, team, role, is_active, last_login, created_at FROM users ORDER BY id',
     );
-    res.json(users);
+    res.json(users.map((user) => ({
+      ...user,
+      role: normalizeRole(String(user.role)),
+    })));
   } catch (error) {
     console.error('getUsers error:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -27,7 +31,22 @@ export const updateUserRole = async (req: Request, res: Response): Promise<void>
       return;
     }
 
-    await execute('UPDATE users SET role = ? WHERE id = ?', [role, userId]);
+    const users = await query<(RowDataPacket & { team: 'blue' | 'red' | null })[]>(
+      'SELECT team FROM users WHERE id = ?',
+      [userId],
+    );
+    if (users.length === 0) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    const dbRole = toDatabaseRole(users[0].team, role);
+    if (!dbRole) {
+      res.status(400).json({ error: 'Assign a team before setting a non-gamemaster role' });
+      return;
+    }
+
+    await execute('UPDATE users SET role = ? WHERE id = ?', [dbRole, userId]);
     res.json({ message: 'Role updated' });
   } catch (error) {
     console.error('updateUserRole error:', error);
@@ -46,8 +65,8 @@ export const approveUser = async (req: Request, res: Response): Promise<void> =>
     }
 
     await execute(
-      `UPDATE users SET team = ?, role = 'member' WHERE id = ?`,
-      [team, userId],
+      'UPDATE users SET team = ?, role = ? WHERE id = ?',
+      [team, toDatabaseRole(team, 'member'), userId],
     );
     res.json({ message: 'User approved and assigned to team' });
   } catch (error) {

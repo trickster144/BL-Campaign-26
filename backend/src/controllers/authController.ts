@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { query, execute } from '../databaseConfig.js';
 import { RowDataPacket } from 'mysql2/promise';
+import { normalizeRole } from '../roleUtils.js';
 
 // ── Types ────────────────────────────────────────────────────────────────────
 interface UserRow extends RowDataPacket {
@@ -79,7 +80,7 @@ export const steamCallback = async (req: Request, res: Response): Promise<void> 
 
     if (existingUsers.length > 0) {
       userId = existingUsers[0].id;
-      role = existingUsers[0].role;
+      role = normalizeRole(existingUsers[0].role);
       team = existingUsers[0].team;
       await execute(
         'UPDATE users SET username = ?, avatar_url = ?, last_login = NOW() WHERE id = ?',
@@ -87,8 +88,8 @@ export const steamCallback = async (req: Request, res: Response): Promise<void> 
       );
     } else {
       const result = await execute(
-        `INSERT INTO users (steam_id, username, avatar_url, role, last_login)
-         VALUES (?, ?, ?, 'observer', NOW())`,
+        `INSERT INTO users (steam_id, username, avatar_url, last_login)
+         VALUES (?, ?, ?, NOW())`,
         [steamId, username, avatarUrl],
       );
       userId = result.insertId;
@@ -133,7 +134,7 @@ export const getProfile = async (req: Request, res: Response): Promise<void> => 
       username: u.username,
       avatar_url: u.avatar_url,
       team: u.team,
-      role: u.role,
+      role: normalizeRole(u.role),
       is_active: u.is_active,
     });
   } catch (error) {
