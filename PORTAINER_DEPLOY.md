@@ -18,9 +18,9 @@
 - **Environment file**: Point to the root `.env` file
 - **Deploy**
 
-### 3. Default Ports (changed from standard web dev ports)
-- **Frontend**: http://localhost:8080 (instead of 80)
-- **Backend**: http://localhost:5001 (instead of 5000)
+### 3. Default Ports
+- **Frontend**: http://localhost:10011
+- **Backend**: http://localhost:10012
 
 ### 4. Verify Database Connection
 The backend connects to your existing MySQL server:
@@ -34,8 +34,8 @@ Make sure your MySQL server allows connections from Docker containers.
 
 ### Root .env (for Portainer)
 ```
-FRONTEND_PORT=8080
-BACKEND_PORT=5001
+FRONTEND_PORT=10011
+BACKEND_PORT=10012
 COMPOSE_PROJECT_NAME=bl-campaign
 ```
 
@@ -49,12 +49,12 @@ DB_USER=ash_user_copilot
 DB_PASSWORD=Ashleycampaignsql123
 
 # Server ports (updated)
-PORT=5001
-FRONTEND_URL=http://localhost:8080
+PORT=10012
+FRONTEND_URL=http://localhost:10011
 
 # Steam auth (CONFIGURE THIS!)
 STEAM_API_KEY=CONFIGURE_YOUR_STEAM_API_KEY_HERE
-STEAM_RETURN_URL=http://localhost:5001/api/auth/steam/callback
+STEAM_RETURN_URL=http://localhost:10012/api/auth/steam/callback
 
 # Security
 JWT_SECRET=bl-campaign-development-secret-change-for-production
@@ -63,7 +63,7 @@ JWT_SECRET=bl-campaign-development-secret-change-for-production
 ## Post-Deployment Steps
 
 1. **Test database connection**: Backend logs should show "✅ Database connection successful"
-2. **Test frontend**: Visit http://localhost:8080
+2. **Test frontend**: Visit http://localhost:10011
 3. **Test Steam login**: Click "Sign in with Steam" (requires Steam API key configured)
 4. **Create first admin**: First user to login can be manually promoted to gamemaster in database
 

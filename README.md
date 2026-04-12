@@ -222,8 +222,8 @@ docker-compose logs -f
 ```
 
 ### Default Ports (Updated for Testing Environment)
-- **Frontend**: http://localhost:8080 (changed from port 80)
-- **Backend API**: http://localhost:5001 (changed from port 5000)
+- **Frontend**: http://localhost:10011
+- **Backend API**: http://localhost:10012
 
 ### Steam Authentication Setup
 **Before first use**, configure Steam login:
@@ -240,13 +240,13 @@ For cloud deployment on Portainer.io:
 
 ### Individual Services
 ```bash
-# Build & run backend only (port 5001)
+# Build & run backend only (port 10012)
 docker build -t bl-backend ./backend
-docker run -d -p 5001:5001 --env-file backend/.env bl-backend
+docker run -d -p 10012:10012 --env-file backend/.env bl-backend
 
-# Build & run frontend only (port 8080)
+# Build & run frontend only (port 10011)
 docker build -t bl-frontend ./frontend
-docker run -d -p 8080:80 bl-frontend
+docker run -d -p 10011:80 bl-frontend
 ```
 
 ## Development

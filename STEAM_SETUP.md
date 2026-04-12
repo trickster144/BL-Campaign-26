@@ -18,16 +18,16 @@
 
 3. **Update URLs** to match your deployment:
    ```
-   STEAM_RETURN_URL=http://your-domain.com:5001/api/auth/steam/callback
-   STEAM_REALM=http://your-domain.com:5001/
-   FRONTEND_URL=http://your-domain.com:8080
+   STEAM_RETURN_URL=http://your-domain.com:10012/api/auth/steam/callback
+   STEAM_REALM=http://your-domain.com:10012/
+   FRONTEND_URL=http://your-domain.com:10011
    ```
    
    For local testing, use:
    ```
-   STEAM_RETURN_URL=http://localhost:5001/api/auth/steam/callback
-   STEAM_REALM=http://localhost:5001/
-   FRONTEND_URL=http://localhost:8080
+   STEAM_RETURN_URL=http://localhost:10012/api/auth/steam/callback
+   STEAM_REALM=http://localhost:10012/
+   FRONTEND_URL=http://localhost:10011
    ```
 
 ## Step 3: Production Security
@@ -65,14 +65,14 @@
 
 ### Testing Login
 1. Start your application: `docker-compose up`
-2. Visit: `http://localhost:8080`
+2. Visit: `http://localhost:10011`
 3. Click "Sign in with Steam"
 4. Should redirect to Steam, then back to your app with logged-in status
 
 ### Domain Configuration
 - For production, update all localhost references to your actual domain
 - SSL/HTTPS is recommended for production (Steam supports both HTTP and HTTPS)
-- Make sure firewall allows traffic on ports 5001 (backend) and 8080 (frontend)
+- Make sure firewall allows traffic on ports 10012 (backend) and 10011 (frontend)
 
 ## Security Notes
 

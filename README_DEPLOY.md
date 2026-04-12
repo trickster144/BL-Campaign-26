@@ -6,12 +6,12 @@ Deployment notes — Portainer / Docker Compose
 
 2) Use stack.env in Portainer
    - In Portainer stack editor either upload stack.env or paste its contents when deploying the compose file.
-   - The compose file uses host ports by default: backend -> 55002, frontend -> 58081. Change these in stack.env if needed.
+   - The compose file uses host ports by default: backend -> 10012, frontend -> 10011. Change these in stack.env if needed.
 
 3) Port checks
    - If Portainer reports "port already allocated" stop the process using the port or pick different host ports.
-   - Linux: sudo ss -ltnp | grep 5002
-   - Windows: netstat -ano | findstr :5002
+   - Linux: sudo ss -ltnp | grep 10012
+   - Windows: netstat -ano | findstr :10012
 
 4) Steam auth
    - Ensure STEAM_API_KEY is set in stack.env. STEAM_RETURN_URL and STEAM_REALM must match your public domain.
