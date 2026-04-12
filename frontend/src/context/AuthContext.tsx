@@ -62,7 +62,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [checkAuth]);
 
   const login = useCallback(() => {
-    const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:10012/api';
     window.location.href = `${apiBase}/auth/steam`;
   }, []);
 

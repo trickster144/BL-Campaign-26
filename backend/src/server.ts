@@ -28,7 +28,7 @@ import adminRoutes from './routes/adminRoutes.js';
 const app = express();
 const server = createServer(app);
 
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:10011';
 
 const io = new Server(server, {
   cors: {
@@ -92,7 +92,7 @@ io.on('connection', (socket) => {
 });
 
 // ── Startup ──────────────────────────────────────────────────────────────────
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10012;
 
 async function startup(): Promise<void> {
   // Test database connection
