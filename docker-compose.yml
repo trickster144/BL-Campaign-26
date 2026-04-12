@@ -15,10 +15,10 @@ services:
       - DB_PASSWORD=${DB_PASSWORD:-Ashleycampaignsql123}
       - PORT=10012
       - NODE_ENV=${NODE_ENV:-production}
-      - FRONTEND_URL=${FRONTEND_URL:-http://localhost:10011}
+      - FRONTEND_URL=${FRONTEND_URL:-http://10.0.0.28:10011}
       - STEAM_API_KEY=${STEAM_API_KEY:-31CF743A89D4659891C55ACCDE225FF2}
-      - STEAM_RETURN_URL=${STEAM_RETURN_URL:-http://localhost:10012/api/auth/steam/callback}
-      - STEAM_REALM=${STEAM_REALM:-http://localhost:10012/}
+      - STEAM_RETURN_URL=${STEAM_RETURN_URL:-http://10.0.0.28:10012/api/auth/steam/callback}
+      - STEAM_REALM=${STEAM_REALM:-http://10.0.0.28:10012/}
       - JWT_SECRET=${JWT_SECRET:-bl-campaign-development-secret-change-for-production}
       - TICK_INTERVAL_MS=${TICK_INTERVAL_MS:-60000}
       - GAME_START_DATE=${GAME_START_DATE:-2026-04-11T00:00:00Z}

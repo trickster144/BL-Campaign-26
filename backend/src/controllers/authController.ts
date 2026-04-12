@@ -16,7 +16,7 @@ interface UserRow extends RowDataPacket {
 
 const JWT_SECRET = process.env.JWT_SECRET || 'default-secret';
 const STEAM_API_KEY = process.env.STEAM_API_KEY || '';
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:10011';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://10.0.0.28:10011';
 
 // ── Steam Login Redirect ─────────────────────────────────────────────────────
 

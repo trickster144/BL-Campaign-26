@@ -28,7 +28,7 @@ import adminRoutes from './routes/adminRoutes.js';
 const app = express();
 const server = createServer(app);
 
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:10011';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://10.0.0.28:10011';
 
 const io = new Server(server, {
   cors: {
