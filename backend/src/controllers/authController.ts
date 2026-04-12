@@ -87,13 +87,29 @@ export const steamCallback = async (req: Request, res: Response): Promise<void> 
         [username, avatarUrl, userId],
       );
     } else {
-      const result = await execute(
-        `INSERT INTO users (steam_id, username, avatar_url, last_login)
-         VALUES (?, ?, ?, NOW())`,
-        [steamId, username, avatarUrl],
+      // First real user (excluding seed/system accounts) becomes gamemaster
+      const countRows = await query<(RowDataPacket & { cnt: number })[]>(
+        "SELECT COUNT(*) AS cnt FROM users WHERE steam_id != 'SYSTEM'",
       );
-      userId = result.insertId;
-      role = 'observer';
+      const isFirstUser = (countRows[0]?.cnt ?? 0) === 0;
+
+      if (isFirstUser) {
+        const result = await execute(
+          `INSERT INTO users (steam_id, username, avatar_url, role, last_login)
+           VALUES (?, ?, ?, 'gamemaster', NOW())`,
+          [steamId, username, avatarUrl],
+        );
+        userId = result.insertId;
+        role = 'gamemaster';
+      } else {
+        const result = await execute(
+          `INSERT INTO users (steam_id, username, avatar_url, last_login)
+           VALUES (?, ?, ?, NOW())`,
+          [steamId, username, avatarUrl],
+        );
+        userId = result.insertId;
+        role = 'observer';
+      }
       team = null;
     }
 
