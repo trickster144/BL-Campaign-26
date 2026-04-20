@@ -1,0 +1,17 @@
+Coal/Iron/Bauxite/ston/Uranium Mine build cost:
+Stone 40t
+Steel 75t
+Wooden boards 10t
+Mechanical components 5t
+
+Oil Well Build Cost:
+Stone 2t
+Steel 85t
+Wooden boards 1t
+Mechanical components 25t
+
+Woodcutting build cost:
+Bricks 25t
+Steel 5t
+Wooden boards 8t
+Mechanical components 1t

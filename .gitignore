@@ -1,0 +1,14 @@
+# Environment & secrets
+.env
+files/config.local.php
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Docker volumes
+mysql_data/

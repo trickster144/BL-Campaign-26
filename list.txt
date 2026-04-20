@@ -1,0 +1,29 @@
+*Aggregates*
+Stone
+Coal
+Iron
+Bauxite
+Uranium
+
+*Open Storage Resources* 
+Wood
+Wooden boards
+Aluminium
+Bricks
+Prefab panels
+Steel
+Nuclear fuel
+
+*Warehouse Resources*
+Plastics
+Chemicals
+Electronic components
+Mechanical components 
+Explosives
+
+*Liquids*
+Fuel
+Oil
+
+
+

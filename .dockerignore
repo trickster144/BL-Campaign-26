@@ -1,0 +1,9 @@
+.env
+.git
+.gitignore
+.dockerignore
+docker-compose.yml
+mysql_data/
+init-db/
+README.md
+files/config.local.php
